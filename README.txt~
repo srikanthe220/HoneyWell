@@ -1,0 +1,8 @@
+Read this before running the app or the source code:
+1. To switch on the server, type the command 'npm install' and 'node app2' in the server code's direcrory ie., server (for this to work, node and npm must be installed globally)
+2. To run the executable, double click on the electronapp.exe file, present in the elecronapp direcrory(this executable works for windows now.. Similar executables can be easily built 
+using the source code for other Operating systems, if required).
+3. To run the source code, type 'npm install' and 'npm start' in the cmd from the source code's directory (npm and node has to be installed).
+4. The dump of the database given must be used to install the database(we have used mysql), before setting up the server.
+5. To test the app, you can use the data present in the sent database dump file. You can search for "anth" (which results everyone's position whose name contains anth as substring).
+6. Please watch the video provided for more information.... 

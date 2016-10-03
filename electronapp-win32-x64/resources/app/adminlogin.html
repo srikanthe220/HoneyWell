@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>html { font-size: 14px; font-family: Arial, Helvetica, sans-serif; }</style>
+    <title></title>
+    <link rel="stylesheet" href="kendo.common-material.min.css" />
+    <link rel="stylesheet" href="kendo.material.min.css" />
+    <link rel="stylesheet" href="kendo.material.mobile.min.css" />
+
+    <script src="jquery.min.js"></script>
+    <script src="kendo.all.min.js"></script>
+	
+	        <style>
+            .button3 {
+    background-color: #ff6347;
+    border: none;
+    color: white;
+    padding: 5px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 1150px;
+    cursor: pointer;
+}
+.button3 {border-radius: 8px;}
+            .fieldlist {
+                margin: 0 0 -2em;
+                padding: 0;
+            }
+
+            .fieldlist li {
+                list-style: none;
+                padding-bottom: 2em;
+            }
+
+            .fieldlist label {
+                display: block;
+                padding-bottom: 1em;
+                font-weight: bold;
+                text-transform: uppercase;
+                font-size: 12px;
+                color: #444;
+            }
+			#login{
+			margin-left:300px;
+			background-color: #ff6347;
+			}
+			#clear{
+			margin-left:0px;
+			background-color: #ff6347;
+			}
+        </style>
+		<script>window.$ = window.jQuery = require('./jquery.min.js');</script>
+</head>
+<body bgcolor="#F5F5F5">
+  <form>
+<div id="example">
+    <div class="demo-section k-content"  style="background-color:#F5F5F5;">
+        <ul class="fieldlist" style="background-color:#F5F5F5;margin-left:250px;margin-right:250px;margin-top:150px">
+            <li>
+                <label for="admin-name">Username or Email_id</label>
+                <input id="name" type="email" class="k-textbox" style="width: 100%;" placeholder="you@domain.com" required/>
+            </li>
+           <li>
+                <label for="password">Enter password</label>
+                <input id="password" type="password" class="k-textbox" style="width: 100%;" placeholder="******" required/>
+            </li>
+           
+          
+          
+            <li>
+	<br>
+	<br>
+
+                <div>
+                <button id="login" type= "submit"class="k-button k-primary">Login</button>
+                <button id="clear" type= "reset"class="k-button k-primary">Clear</button>
+</div>
+            
+          </li>
+          
+        </ul>
+
+    </div>
+    
+</div>
+  </form>
+  <a href="local.html"><button class="button3">Back</button></a>
+ <script>
+      $(document).ready(function(){
+        var email,password;
+        $("#login").click(function(){
+          email=$("#name").val();
+          password=$("#password").val();
+          if(!(email==password)){
+            $.post("http://localhost:3000/login",{email: email,password:password}, function(data){
+              console.log(data);
+          });
+          }
+        });
+      });
+    </script>
+</body>
+</html>

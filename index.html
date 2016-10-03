@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>Simple login</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
+    <script>
+      $(document).ready(function(){
+        var user,pass;
+        $("#submit").click(function(){
+          user=$("#user").val();
+          pass=$("#password").val();
+          if(!(user==pass)){
+            $.post("http://localhost:3000/mac-ip",{nm: user}, function(data){
+              console.log(data);
+          });
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Hello people !</h1>
+    <input type="TEXT" id="user" size="40"><br>
+    <input type="text" id="password" size="40"><br>
+    <input type="button" id="submit" value="Submit">
+  </body>
+</html>

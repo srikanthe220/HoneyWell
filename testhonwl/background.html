@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+        <script>window.$ = window.jQuery = require('./jquery.min.js');</script>
+
+    <script>
+      const background = require('electron-process').background;
+      background.registerModule(require('./background'));
+    </script>
+  </head>
+  <body>
+    <h1>Background window</h1>
+  </body>
+</html>

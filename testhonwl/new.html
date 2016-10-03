@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Home Page - My Kendo UI Application</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="site.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="kendo.common.min.css">
+    <link rel="stylesheet" href="kendo.rtl.min.css">
+    <link rel="stylesheet" href="kendo.metro.min.css">
+    
+    <script>window.$ = window.jQuery = require('./jquery.min.js');</script>
+    <script src="jquery.min.js"></script>
+    <script src="kendo.all.min.js"></script>
+    <script src="jszip.min.js"></script>
+
+    <style>
+.button {
+    background-color: #ff6347;
+    border: none;
+    color: white;
+    padding: 5px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 1150px;
+    cursor: pointer;
+}
+.button3 {border-radius: 8px;}
+</style>
+</head>
+
+<body>
+    <p id="here"></p>
+    <div class="container-fluid">
+        <div class="row row-offcanvas row-offcanvas-left">
+            <div id="main-section" class="col-xs-12 column">
+                <div id="main-section-header" class="row">
+                    <h2 id="team-efficiency" class="col-xs-3"  style="color:#ff6347;">HoneyWell Employee Tracker</h2>
+                  <a href="local.html"><button class="button button3">Back</button></a>
+                <div style="clear:both;"></div>
+                </div>
+
+                <div class="main-section-content row" style="">
+
+                    <div id="employee-list" class="col col-xs-2">
+                        <h3 style="font-family: inherit;font-size:100%;color:#ff6347;">Based on your Search,</h3>
+                        <div id="employees-list"></div>
+                    </div>
+                    <div id="employee-details-wrapper" class="col col-xs-10">
+                        <div id="employee-details" class="row">
+                            <div id="employee-about" class="col-xs-12 placeholder">
+                                <div class="row">
+                                    <div id="employeeBio" class="col-xs-12 col-sm-4">
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        const {Tray} = require('electron').remote;
+
+        $(document).ready(function() {
+            var search =localStorage.getItem("p");
+
+            $.when().then(function(){
+              initWidgets(search);
+            })
+
+
+
+            $("[data-toggle=offcanvas]").click(function() {
+                $(".row-offcanvas").toggleClass("active");
+            });
+            
+                    
+
+            function initWidgets(searchedEmployee){
+              $.post("http://localhost:3000/mac-ip",{Ename: searchedEmployee}, function(data){
+                 console.log(data);
+                 data=JSON.parse(data);
+              if(data.length == 0){
+                        if(process.platform == "linux") {    
+                        var empNotFound = new window.Notification('Employee not found..', {
+                        body: "Enter name correctly.. ",
+      
+                        });
+                        }
+                        
+                        if(process.platform == "win32"){
+                            var appIcon = new Tray('Attention.ico');
+                            appIcon.displayBalloon({
+                            title:'Employee not found..',
+                            content:'Enter name correctly..' 
+                            });     
+                        }    
+                    }   
+
+
+             
+              $("#employees-list").kendoListView({
+                  template: $('#employeeItemTemplate').html(),
+                  dataSource: {
+                     data
+                  },
+                  selectable: "single",
+                  dataBound: onListDataBound,
+                  change: onCriteriaChange
+              })
+
+              
+              
+              $('#employeeBio').kendoTooltip({
+                  filter: "a",
+                  content: function(e){
+                      return e.target.find("span").text();
+                  }
+              }) });
+            }
+
+        function onListDataBound(e) {
+            this.select($(".employee:first"));
+        }
+
+        function onCriteriaChange() {
+            var employeeList = $("#employees-list").data("kendoListView"),
+                employee = employeeList.dataSource.getByUid(employeeList.select().attr("data-uid")),  
+                template = kendo.template($("#employeeBioTemplate").html());
+
+            $("#employeeBio").html(template(employee));
+
+        }
+
+      
+      });
+    </script>
+     <script type="text/x-kendo-tmpl" id="employeeItemTemplate">
+        <div class="employee">
+            <div class="employee-wrapper">
+                <img src="./noprofile.jpg"  class="img-responsive employee-list-image"/>
+                    <dl class="employee-list-details">
+                        <dt class="name">#:First_name# #:Last_name# </dt>
+                        <dd class="title">employee </dd>
+                   </dl>
+               </div>
+            </div>
+    </script>
+    <script type="text/x-kendo-tmpl" id="employeeBioTemplate">
+        <div>
+            <h3>ABOUT</h3>
+            <img src="./noprofile.jpg"  class="img-responsive employee-details-image" />
+            <dl class="employee-bio-details">
+                <dt class="name">#:First_name# #:Last_name#</dt>
+                    <dd class="title">employee</dd>
+                    <dd>#:Floor#rd  Floor </dd>
+                    <dd>Pillar nnumber #:Pillar#</dd>
+                    <dd class="phone"><span class="icon icon-mobile"></span>#:Email#</dd>
+                    
+           </dl>
+        </div>
+    </script>
+    <script>
+      const foreground = require('electron-process').foreground;
+      
+      var asyncModule = foreground.getModule(require('./background'));
+      
+    </script>
+
+
+</body>
+
+</html>

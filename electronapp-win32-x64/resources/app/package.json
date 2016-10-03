@@ -1,0 +1,28 @@
+{
+  "name": "electronapp",
+  "version": "0.1.0",
+  "description": "Example application to demonstrate background processes in electron",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-packager . electronapp"
+  },
+  "author": "Kyle Smith",
+  "license": "ISC",
+  "dependencies": {
+    "auto-launch": "^5.0.1",
+    "electron": "^1.4.1",
+    "electron-prebuilt": "^0.36.4",
+    "electron-process": "^0.2.0",
+    "get-mac-address": "^1.0.0",
+    "getmac": "^1.2.1",
+    "network": "^0.3.0",
+    "node-arp": "^1.0.5",
+    "quick-local-ip": "^1.0.7",
+    "wireless": "^0.3.2"
+  },
+  "devDependencies": {
+    "electron-packager": "^8.1.0",
+    "electron-packager-interactive": "0.0.7"
+  }
+}

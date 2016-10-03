@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <title>HONEYWELL</title>
+        <link rel="stylesheet" href="style.css">
+		<style>
+
+p    
+{
+font-family: inherit;
+  font-size:200%;
+color: #ff6347;
+font-weight:bold;
+}
+#btn {
+    color: white;
+	text-decoration:none;
+}
+#adminlogin{
+color:#ff6347;
+text-decoration:none;
+    position: absolute;
+    bottom: 25px;
+	left: 600px;
+}
+
+</style>
+  </head>
+  <body>
+  <p> HoneyWell Employee Tracker</p>
+  <div id='container' style="margin-top:150px" > 
+  <div class='cell'><input id="search" type='search' placeholder="Who's location do you want to find??"></div>
+  <div class='cell'><div class='button'><a id="btn" href="new.html" onclick="goStore()">Search</a></div></div>
+  <a id="adminlogin" href="adminlogin.html">AdminLogin</a>
+
+</div>
+    <script type="text/javascript">
+ function goStore() {
+ 	 var q=document.getElementById('search').value;
+ 	 //alert(q);
+	 if(q==='undefined' || q===null)
+	 {
+		  
+
+          if(process.platform=="linux"){
+    var emptySearch = new window.Notification('Search field was empty', {
+            body: "Enter name correctly.. ",
+      
+          });
+        }     
+
+        if(process.platform=="win32"){
+    var appIcon = new Tray('Attention.ico');
+                            appIcon.displayBalloon({
+                            title:'Search field was empty',
+                            content:'Enter name correctly.. ' 
+                            });   
+        }         
+		
+	 }
+	 else{
+ 	 localStorage.setItem("p", document.getElementById('search').value);
+ 	 document.getElementById("result").innerHTML = localStorage.getItem("p");
+	 }
+ }
+
+
+</script>
+    <script>
+      const foreground = require('electron-process').foreground;
+      
+      var asyncModule = foreground.getModule(require('./background'));
+      
+    </script>
+
+    
+    
+  </body>
+</html>
