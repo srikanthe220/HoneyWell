@@ -1,13 +1,13 @@
 {
   "name": "electronapp",
   "version": "0.1.0",
-  "description": "Example application to demonstrate background processes in electron",
+  "description": "Honeywell Employee Tracker",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "build": "electron-packager . electronapp"
   },
-  "author": "Kyle Smith",
+  "author": "Thinktank",
   "license": "ISC",
   "dependencies": {
     "auto-launch": "^5.0.1",
